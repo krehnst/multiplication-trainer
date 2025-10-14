@@ -11,8 +11,8 @@ const tal = ref([
     faktor2: 8,
     summa: 72,
     svar: null,
-    isCorrect: null,
-    isCorrected: null,
+    isCorrect: false,
+    isCorrected: false,
   },
   {
     id: "1",
@@ -20,8 +20,8 @@ const tal = ref([
     faktor2: 9,
     summa: 54,
     svar: null,
-    isCorrect: null,
-    isCorrected: null,
+    isCorrect: false,
+    isCorrected: false,
   },
   {
     id: "2",
@@ -29,8 +29,8 @@ const tal = ref([
     faktor2: 6,
     summa: 42,
     svar: null,
-    isCorrect: null,
-    isCorrected: null,
+    isCorrect: false,
+    isCorrected: false,
   },
   {
     id: "3",
@@ -38,8 +38,8 @@ const tal = ref([
     faktor2: 7,
     summa: 56,
     svar: null,
-    isCorrect: null,
-    isCorrected: null,
+    isCorrect: false,
+    isCorrected: false,
   },
   {
     id: "4",
@@ -47,8 +47,8 @@ const tal = ref([
     faktor2: 7,
     summa: 49,
     svar: null,
-    isCorrect: null,
-    isCorrected: null,
+    isCorrect: false,
+    isCorrected: false,
   },
   {
     id: "5",
@@ -56,8 +56,8 @@ const tal = ref([
     faktor2: 7,
     summa: 35,
     svar: null,
-    isCorrect: null,
-    isCorrected: null,
+    isCorrect: false,
+    isCorrected: false,
   },
   {
     id: "6",
@@ -65,8 +65,8 @@ const tal = ref([
     faktor2: 8,
     summa: 64,
     svar: null,
-    isCorrect: null,
-    isCorrected: null,
+    isCorrect: false,
+    isCorrected: false,
   },
   // {
   //   id: "7",
@@ -189,20 +189,22 @@ const tal = ref([
 ])
 
 let nextTalId = 0
+
 let nextTalIdString = "1"
 let nextFormIdNr = 1
 let nextFormNr = 1
 let nextFormId = "1"
 
 
+
 function focusNext() {
       playAudio ("https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg")
 
-  let currentFormNr = document.activeElement.id
+  let currentFormNr = parseInt(document.activeElement!.id)
   nextFormNr = ++currentFormNr
   nextFormId = nextFormNr.toString();
-  if (document.getElementById(nextFormId) != null) { document.getElementById(nextFormId).focus(); }
-  else { document.getElementById("next-button").focus(); }
+  if (document.getElementById(nextFormId) != null) { document.getElementById(nextFormId)!.focus(); }
+  else { document.getElementById("next-button")!.focus(); }
 
   score = ++score
 }
@@ -212,7 +214,7 @@ function reload() {
   window.scrollTo(0, 0) 
 }
 
-function playAudio(url) {
+function playAudio(url: string | undefined) {
   new Audio(url).play()
 }
 
@@ -222,16 +224,16 @@ function addNewTal(this: any) {
     nextTalId = nextTalId++,
     nextTalIdString = nextTalId.toString();
   tal.value.push({
-    id: nextTalId++,
+    id: nextTalIdString,
     faktor1: this.nyFaktor1,
     faktor2: this.nyFaktor2,
     summa: this.nyFaktor1 * this.nyFaktor2,
     svar: null,
-    isCorrect: null,
-    isCorrected: null,
+    isCorrect: false,
+    isCorrected: false,
   })
   console.log(nextTalIdString),
-    document.getElementById(nextTalIdString).focus();
+    document.getElementById(nextTalIdString)!.focus();
 }
 
 </script>
@@ -246,9 +248,9 @@ function addNewTal(this: any) {
     <div class="card" :class="{ correct: item.isCorrected }" v-for="item in tal">
       <div class="flex">
         <div class="tal">{{ item.faktor1 }} x {{ item.faktor2 }} </div> = <div class="svar">
-          <input type="number" :id="item.id" v-model="item.svar" :disabled="item.isCorrected" placeholder="svar"
-            @input="item.svar == item.summa ? item.isCorrect = true : null"
-            @keyup.enter="item.isCorrect ? (item.isCorrected = true, focusNext()) : null" />
+          <input type="number" :id="item.id" v-model="item.svar" :disabled="item.isCorrected!" placeholder="svar"
+            @input="item.svar == item.summa ? item.isCorrect = true : false"
+            @keyup.enter="item.isCorrect ? (item.isCorrected = true, focusNext()) : false" />
 
         </div>
       </div>
