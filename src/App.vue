@@ -228,7 +228,7 @@ function playAudio(url: string | undefined) {
 }
 
 function addNewTal(this: any) {
-    let nyFaktor1 = Math.ceil(Math.random() * this.svarighet)
+    let nyFaktor1 = Math.ceil(Math.random() * 10)
     let nyFaktor2 = Math.ceil(Math.random() * 10)
     nextTalId = ++nextTalId,
     nextTalIdString = nextTalId.toString();
