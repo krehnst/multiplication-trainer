@@ -1,201 +1,20 @@
 <script setup lang="ts">
 
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 let svarighet = 5
 let score = 0
+    let nyFaktor1 = Math.ceil(Math.random() * 10)
+    let nyFaktor2 = Math.ceil(Math.random() * 10)
 const tal0 =ref()
 const tal = ref( [{
     id: "0",
-    faktor1: 9,
-    faktor2: 8,
-    summa: 72,
+    faktor1: nyFaktor1,
+    faktor2: nyFaktor2,
+    summa: nyFaktor1 * nyFaktor2,
     svar: null,
     isCorrect: false,
     isCorrected: false}
    ])
-var tal1 = ref( [
-  {
-    id: "0",
-    faktor1: 9,
-    faktor2: 8,
-    summa: 72,
-    svar: null,
-    isCorrect: false,
-    isCorrected: false,
-  },
-  {
-    id: "1",
-    faktor1: 6,
-    faktor2: 9,
-    summa: 54,
-    svar: null,
-    isCorrect: false,
-    isCorrected: false,
-  },
-  {
-    id: "2",
-    faktor1: 7,
-    faktor2: 6,
-    summa: 42,
-    svar: null,
-    isCorrect: false,
-    isCorrected: false,
-  },
-  {
-    id: "3",
-    faktor1: 8,
-    faktor2: 7,
-    summa: 56,
-    svar: null,
-    isCorrect: false,
-    isCorrected: false,
-  },
-  {
-    id: "4",
-    faktor1: 7,
-    faktor2: 7,
-    summa: 49,
-    svar: null,
-    isCorrect: false,
-    isCorrected: false,
-  },
-  {
-    id: "5",
-    faktor1: 5,
-    faktor2: 7,
-    summa: 35,
-    svar: null,
-    isCorrect: false,
-    isCorrected: false,
-  },
-  {
-    id: "6",
-    faktor1: 8,
-    faktor2: 8,
-    summa: 64,
-    svar: null,
-    isCorrect: false,
-    isCorrected: false,
-  },
-  // {
-  //   id: "7",
-  //   faktor1: 6,
-  //   faktor2: 7,
-  //   summa: 42,
-  //   svar: null,
-  //   isCorrect: null,
-  //   isCorrected: null,
-  // },
-  // {
-  //   id: "8",
-  //   faktor1: 7,
-  //   faktor2: 8,
-  //   summa: 56,
-  //   svar: null,
-  //   isCorrect: null,
-  //   isCorrected: null,
-  // },
-  // {
-  //   id: "9",
-  //   faktor1: 9,
-  //   faktor2: 9,
-  //   summa: 81,
-  //   svar: null,
-  //   isCorrect: null,
-  //   isCorrected: null,
-  // },
-  // {
-  //   id: "10",
-  //   faktor1: 7,
-  //   faktor2: 9,
-  //   summa: 63,
-  //   svar: null,
-  //   isCorrect: null,
-  //   isCorrected: null,
-  // },
-  // {
-  //   id: "11",
-  //   faktor1: 6,
-  //   faktor2: 6,
-  //   summa: 36,
-  //   svar: null,
-  //   isCorrect: null,
-  //   isCorrected: null,
-  // },
-  // {
-  //   id: "12",
-  //   faktor1: 9,
-  //   faktor2: 5,
-  //   summa: 45,
-  //   svar: null,
-  //   isCorrect: null,
-  //   isCorrected: null,
-  // },
-  // {
-  //   id: "13",
-  //   faktor1: 7,
-  //   faktor2: 5,
-  //   summa: 35,
-  //   svar: null,
-  //   isCorrect: null,
-  //   isCorrected: null,
-  // },
-  // {
-  //   id: "14",
-  //   faktor1: 8,
-  //   faktor2: 6,
-  //   summa: 48,
-  //   svar: null,
-  //   isCorrect: null,
-  //   isCorrected: null,
-  // },
-  // {
-  //   id: "15",
-  //   faktor1: 9,
-  //   faktor2: 7,
-  //   summa: 63,
-  //   svar: null,
-  //   isCorrect: null,
-  //   isCorrected: null,
-  // },
-  // {
-  //   id: "16",
-  //   faktor1: 5,
-  //   faktor2: 8,
-  //   summa: 40,
-  //   svar: null,
-  //   isCorrect: null,
-  //   isCorrected: null,
-  // },
-  // {
-  //   id: "17",
-  //   faktor1: 9,
-  //   faktor2: 6,
-  //   summa: 54,
-  //   svar: null,
-  //   isCorrect: null,
-  //   isCorrected: null,
-  // },
-  // {
-  //   id: "18",
-  //   faktor1: 8,
-  //   faktor2: 4,
-  //   summa: 32,
-  //   svar: null,
-  //   isCorrect: null,
-  //   isCorrected: null,
-  // },
-  // {
-  //   id: "19",
-  //   faktor1: 8,
-  //   faktor2: 9,
-  //   summa: 72,
-  //   svar: null,
-  //   isCorrect: null,
-  //   isCorrected: null,
-  // },
-
-])
 
 let nextTalId = 0
 
@@ -203,7 +22,6 @@ let nextTalIdString = "1"
 let nextFormIdNr = 1
 let nextFormNr = 1
 let nextFormId = "1"
-
 
 
 function focusNext() {
@@ -251,7 +69,7 @@ function addNewTal(this: any) {
 <template>
   <div class="header card">
     <span>{{ score }} </span><input type="number" class="svarighet" placeholder="svårighetsgrad" v-model="svarighet" />
-    <div>
+    <div class="flex">
       <button class = secondary id="refresh-button" @click="reload()">Börja om</button>
      <button id="next-button" @click="addNewTal()">Nytt tal</button>
     </div>
