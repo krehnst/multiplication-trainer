@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import { ref } from 'vue'
-const svarighet = 5
+let svarighet = 5
 let score = 0
 const tal0 =ref()
 const tal = ref( [{
